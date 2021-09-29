@@ -1,0 +1,26 @@
+version: '3'
+services:
+  php_5_6:
+    image: php:5.6-fpm
+    container_name: php_5_6
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - C:\xampp\htdocs\docker\php-nginx\php\local.ini:/usr/local/etc/php/conf.d/local.ini
+      - C:\xampp\htdocs\docker\php-nginx:/var/www
+    networks:
+        - local-bridge
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    tty: true
+    volumes:
+      - C:\xampp\htdocs\docker\php-nginx:/var/www
+      - C:\xampp\htdocs\docker\php-nginx\nginx\conf.d\:/etc/nginx/conf.d/
+    ports:
+      - 80:80
+    networks:
+      - local-bridge
+networks:
+  local-bridge:
+    driver: bridge
